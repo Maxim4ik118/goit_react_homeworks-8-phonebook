@@ -23,6 +23,7 @@ export default createReducer(initialState, {
   },
   [getContatcts.pending]: state => {
     state.isFetching = true;
+    state.error = null;
   },
   [getContatcts.fulfilled]: (state, action) => {
     state.contacts = action.payload;
@@ -34,6 +35,7 @@ export default createReducer(initialState, {
   },
   [deleteContact.pending]: state => {
     state.isFetching = true;
+    state.error = null;
   },
   [deleteContact.fulfilled]: (state, action) => {
     state.contacts = state.contacts = state.contacts.filter(
@@ -47,6 +49,7 @@ export default createReducer(initialState, {
   },
   [addContact.pending]: state => {
     state.isFetching = true;
+    state.error = null;
   },
   [addContact.fulfilled]: (state, action) => {
     state.contacts = [...state.contacts, action.payload];

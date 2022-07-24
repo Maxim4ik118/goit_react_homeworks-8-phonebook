@@ -1,14 +1,6 @@
-import { useEffect } from 'react';
-import { nanoid } from 'nanoid';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  addContact,
-  getContatcts,
-  deleteContact,
-  setFilterTerm,
-} from 'redux/phonebookActions';
+import { Routes, Route } from 'react-router-dom';
 
-import { Filter, ContactList, Section, ContactForm } from './components';
+import { Contacts } from 'pages';
 
 // const INITIAL_CONTACTS_LIST = [
 //   { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -18,47 +10,14 @@ import { Filter, ContactList, Section, ContactForm } from './components';
 // ];
 
 const App = () => {
-  const dispatch = useDispatch();
-  const { contacts, filterTerm, isFetching, error } = useSelector(
-    state => state.phonebook
-  );
-
-  useEffect(() => {
-    dispatch(getContatcts());
-  }, [dispatch]);
-
-  const handleAddContact = newContactData => {
-    const newContactEntity = {
-      id: nanoid(),
-      ...newContactData,
-    };
-
-    if (!checkNewContactPresence(newContactEntity.name)) {
-      dispatch(addContact(newContactEntity));
-    } else {
-      alert(`${newContactEntity.name} is already in contacts!`);
-    }
-  };
-
-  const handleDeleteContact = contactId => {
-    dispatch(deleteContact(contactId));
-  };
-
-  const handleFilterContactsByName = ({ target: { value } }) => {
-    dispatch(setFilterTerm(value));
-  };
-
-  const checkNewContactPresence = contactName => {
-    return contacts.some(contact => contact.name === contactName);
-  };
-
-  const contactsFilteredByName = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filterTerm.toLowerCase())
-  );
-
   return (
     <div className="app">
-      <Section title="Phonebook">
+      <Routes>
+        <Route path="contacts" element={<Contacts />} />
+      </Routes>
+      {/* <Route path="/contacts" component={Contacts} />
+        <Route path="/contacts" component={Contacts} /> */}
+      {/* <Section title="Phonebook">
         <ContactForm addContact={handleAddContact} />
       </Section>
       <Section title="Contacts">
@@ -70,7 +29,7 @@ const App = () => {
           onDelete={handleDeleteContact}
         />
         {!!error && <div className="error">{error.message}</div>}
-      </Section>
+      </Section> */}
     </div>
   );
 };

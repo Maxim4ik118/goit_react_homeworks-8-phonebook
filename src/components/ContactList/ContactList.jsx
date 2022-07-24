@@ -39,7 +39,6 @@ ContactList.propTypes = {
       phone: PropTypes.string.isRequired,
     }).isRequired
   ).isRequired,
-  filter: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
 };
