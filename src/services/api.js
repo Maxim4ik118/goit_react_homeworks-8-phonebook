@@ -42,30 +42,16 @@ export const UserAPI = {
 }
 
 export const ContactsAPI = {
-
-
   async getContactsRequest() {
-    const response = await fetch(
-      `https://api.themoviedb.org/3/trending/all/day?api_key=${process.env.REACT_APP_THEMOVIE_API_KEY}`
-    );
-    return await response.json();
+    const { data } = await $privateHost.get(`/contacts`);
+    return await data;
   },
-  async addContactRequest(movieId) {
-    const response = await fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${process.env.REACT_APP_THEMOVIE_API_KEY}&language=en-US`
-    );
-    return await response.json();
+  async addContactRequest(contactData) {
+    const { data } = await $privateHost.post(`/contacts`, {...contactData});
+    return await data;
   },
-  async deleteContactRequest(movieId) {
-    const response = await fetch(
-      `https://api.themoviedb.org/3/movie//${movieId}/reviews?api_key=${process.env.REACT_APP_THEMOVIE_API_KEY}&language=en-US&page=1`
-    );
-    return await response.json();
-  },
-  async updateContactRequest(movieId) {
-    const response = await fetch(
-      `https://api.themoviedb.org/3/movie//${movieId}/reviews?api_key=${process.env.REACT_APP_THEMOVIE_API_KEY}&language=en-US&page=1`
-    );
-    return await response.json();
+  async deleteContactRequest(contactId) {
+    const { data } = await $privateHost.delete(`/contacts/${contactId}`);
+    return await data;
   },
 };

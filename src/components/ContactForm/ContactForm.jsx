@@ -8,7 +8,7 @@ import { StyledContactForm } from './Styled';
 
 const INITIAL_FORM_STATE = {
   name: '',
-  phone: '',
+  number: '',
 }
 
 const ContactForm = ({addContact}) => {
@@ -23,11 +23,11 @@ const ContactForm = ({addContact}) => {
 
     const newContact = {
       name: formData.name,
-      phone: formData.phone,
+      number: formData.number,
     };
 
     addContact(newContact);
-    setFormData({ phone: '', name: '' });
+    setFormData({ number: '', name: '' });
   };
 
   return (
@@ -48,10 +48,10 @@ const ContactForm = ({addContact}) => {
         <span className="name">Number</span>
         <Input
           type="tel"
-          name="phone"
+          name="number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          value={formData.phone}
+          value={formData.number}
           onChange={handleInputsChange}
           required
         />

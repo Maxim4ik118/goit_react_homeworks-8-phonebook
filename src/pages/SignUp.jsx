@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Alert, Box, Stack, TextField } from '@mui/material';
@@ -9,10 +11,18 @@ import { userSignUpRequest } from 'redux/user/userActions';
 
 import { StyledSignUp } from './Styled';
 
+const INITIAL_FORM_STATE = {
+  name: '',
+  email: '',
+  password: '',
+}
+
 function SignUp() {
   const dispatch = useDispatch();
-  const { formData, handleInputChange, reset } = useForm();
-  const { error, isFetching } = useSelector(state => state.user);
+  const navigate = useNavigate();
+
+  const { formData, handleInputChange, reset } = useForm(INITIAL_FORM_STATE);
+  const { userData, error, isFetching } = useSelector(state => state.user);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -20,6 +30,12 @@ function SignUp() {
     dispatch(userSignUpRequest(formData));
     reset();
   };
+
+  useEffect(() => {
+    if (!userData) return;
+
+    navigate('/contacts');
+  }, [userData, navigate]);
 
   return (
     <StyledSignUp>
@@ -38,19 +54,19 @@ function SignUp() {
       >
         <h1 className="title">Sign Up</h1>
         <Stack sx={{ width: '100%', alignItems: 'center' }} spacing={2}>
-          {error?.message && (
+          {!!error && (
             <Alert
               sx={{ width: '100%', maxWidth: '450px', boxSizing: 'border-box' }}
               severity="error"
             >
-              {error.message}
+              {error}
             </Alert>
           )}
           <TextField
             className="form-input"
             id="outlined-required"
             label="Name"
-            value={formData?.name ?? ''}
+            value={formData.name}
             name="name"
             onChange={handleInputChange}
             required
@@ -59,7 +75,7 @@ function SignUp() {
             className="form-input"
             id="outlined-required"
             label="Email"
-            value={formData?.email ?? ''}
+            value={formData.email}
             name="email"
             onChange={handleInputChange}
             required
@@ -70,13 +86,13 @@ function SignUp() {
             label="Password"
             type="password"
             autoComplete="current-password"
-            value={formData?.password ?? ''}
+            value={formData.password}
             name="password"
             onChange={handleInputChange}
             required
           />
 
-<LoadingButton
+          <LoadingButton
             loading={isFetching}
             loadingPosition="start"
             startIcon={<LoginIcon />}
@@ -84,8 +100,11 @@ function SignUp() {
             disabled={isFetching}
             type="submit"
           >
-            Sign In
+            Sign Up
           </LoadingButton>
+          <p>
+            You already have an account? <Link to="/login">Sign In!</Link>
+          </p>
         </Stack>
       </Box>
     </StyledSignUp>

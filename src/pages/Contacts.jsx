@@ -1,7 +1,5 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { nanoid } from 'nanoid';
-
 
 import Alert from '@mui/material/Alert';
 
@@ -29,15 +27,10 @@ function Contacts() {
   }, [dispatch]);
 
   const handleAddContact = newContactData => {
-    const newContactEntity = {
-      id: nanoid(),
-      ...newContactData,
-    };
-
-    if (!checkNewContactPresence(newContactEntity.name)) {
-      dispatch(addContact(newContactEntity));
+    if (!checkNewContactPresence(newContactData.name)) {
+      dispatch(addContact(newContactData));
     } else {
-      alert(`${newContactEntity.name} is already in contacts!`);
+      alert(`${newContactData.name} is already in contacts!`);
     }
   };
 
@@ -76,7 +69,7 @@ function Contacts() {
         )}
         {!!error && (
           <Alert className="error" severity="error">
-            {error.message}
+            {error}
           </Alert>
         )}
       </Section>

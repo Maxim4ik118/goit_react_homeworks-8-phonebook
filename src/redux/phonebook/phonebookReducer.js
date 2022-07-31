@@ -15,9 +15,6 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
-  [addContact]: (state, action) => {
-    state.contacts = [...state.contacts, action.payload];
-  },
   [setFilterTerm]: (state, action) => {
     state.filterTerm = action.payload;
   },
@@ -30,7 +27,7 @@ export default createReducer(initialState, {
     state.isFetching = false;
   },
   [getContatcts.rejected]: (state, action) => {
-    state.error = action.payload;
+    state.error = action.payload.message;
     state.isFetching = false;
   },
   [deleteContact.pending]: state => {
@@ -38,13 +35,13 @@ export default createReducer(initialState, {
     state.error = null;
   },
   [deleteContact.fulfilled]: (state, action) => {
-    state.contacts = state.contacts = state.contacts.filter(
-      contact => contact.id !== action.payload.id
+    state.contacts = state.contacts.filter(
+      contact => contact.id !== action.payload
     );
     state.isFetching = false;
   },
   [deleteContact.rejected]: (state, action) => {
-    state.error = action.payload;
+    state.error = action.payload.message;
     state.isFetching = false;
   },
   [addContact.pending]: state => {
@@ -56,7 +53,7 @@ export default createReducer(initialState, {
     state.isFetching = false;
   },
   [addContact.rejected]: (state, action) => {
-    state.error = action.payload;
+    state.error = action.payload.message;
     state.isFetching = false;
   },
 });

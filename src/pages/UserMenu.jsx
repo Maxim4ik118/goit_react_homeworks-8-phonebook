@@ -20,7 +20,7 @@ function UserMenu() {
     if (!!userData) return;
 
     dispatch(getUserDetailsRequest());
-  }, []);
+  }, [dispatch, userData]);
 
   const handleLogOut = () => {
     dispatch(userLogOutRequest());
@@ -32,21 +32,21 @@ function UserMenu() {
         <h1 className="title">User Menu</h1>
 
         <Stack sx={{ width: '100%', justifyContent: 'center' }} spacing={2}>
-          {error?.message && (
+          {!!error && (
             <Alert
               sx={{ width: '100%', maxWidth: '450px', boxSizing: 'border-box' }}
               severity="error"
             >
-              {error.message}
+              {error}
             </Alert>
           )}
           {!isFetching ? (
             <>
               <p className="user-info">
-                User Name: <b>{userData?.name ?? '-'}</b>
+                User Name: <b>{userData?.user?.name ?? '-'}</b>
               </p>
               <p className="user-info">
-                User Email: <b>{userData?.email ?? '-'}</b>
+                User Email: <b>{userData?.user?.email ?? '-'}</b>
               </p>
             </>
           ) : (

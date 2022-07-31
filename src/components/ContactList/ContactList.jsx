@@ -12,10 +12,10 @@ const ContactList = ({ contacts, onDelete, isFetching }) => {
         {contacts.length === 0 && !isFetching && <p>There are no contacts found!</p>}
         {contacts.length > 0 &&
           !isFetching &&
-          contacts.map(({ id, name, phone }) => {
+          contacts.map(({ id, name, number }) => {
             return (
               <li key={id} className="contact">
-                <span className="contact-name">{name}</span>:&nbsp;{phone}
+                <span className="contact-name">{name}</span>:&nbsp;{number}
                 <button
                   className="delete-contact-btn"
                   type="button"

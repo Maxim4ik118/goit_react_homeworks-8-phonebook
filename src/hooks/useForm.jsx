@@ -1,7 +1,7 @@
 const { useState } = require('react');
 
-export const useForm = () => {
-  const [formData, setFormData] = useState({});
+export const useForm = (initialState = {}) => {
+  const [formData, setFormData] = useState(initialState);
 
   const handleInputChange = ({ target: { name, value } }) => {
     setFormData(prevState => ({

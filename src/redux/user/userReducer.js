@@ -1,5 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { getUserDetailsRequest, userLogOutRequest, userSignInRequest, userSignUpRequest } from './userActions';
+import {
+  getUserDetailsRequest,
+  userLogOutRequest,
+  userSignInRequest,
+  userSignUpRequest,
+} from './userActions';
 
 const initialState = {
   userData: null,
@@ -8,13 +13,6 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
-  // [addContact]: (state, action) => {
-  //   state.contacts = [...state.contacts, action.payload];
-  // },
-  // [setFilterTerm]: (state, action) => {
-  //   state.filterTerm = action.payload;
-  // },
-
   [userSignUpRequest.pending]: state => {
     state.isFetching = true;
     state.error = null;
@@ -24,7 +22,7 @@ export default createReducer(initialState, {
     state.isFetching = false;
   },
   [userSignUpRequest.rejected]: (state, action) => {
-    state.error = action.error;
+    state.error = action.payload.message;
     state.isFetching = false;
   },
 
@@ -37,7 +35,7 @@ export default createReducer(initialState, {
     state.isFetching = false;
   },
   [userSignInRequest.rejected]: (state, action) => {
-    state.error = action.error;
+    state.error = action.payload.message;
     state.isFetching = false;
   },
 
@@ -45,12 +43,12 @@ export default createReducer(initialState, {
     state.isFetching = true;
     state.error = null;
   },
-  [userLogOutRequest.fulfilled]: (state) => {
+  [userLogOutRequest.fulfilled]: state => {
     state.userData = null;
     state.isFetching = false;
   },
   [userLogOutRequest.rejected]: (state, action) => {
-    state.error = action.error;
+    state.error = action.payload.message;
     state.isFetching = false;
   },
 
@@ -59,13 +57,11 @@ export default createReducer(initialState, {
     state.error = null;
   },
   [getUserDetailsRequest.fulfilled]: (state, action) => {
-    state.userData = action.payload;
+    state.userData = { user: action.payload };
     state.isFetching = false;
   },
   [getUserDetailsRequest.rejected]: (state, action) => {
-    state.error = action.error;
+    state.error = action.payload.message;
     state.isFetching = false;
   },
-
-  
 });
