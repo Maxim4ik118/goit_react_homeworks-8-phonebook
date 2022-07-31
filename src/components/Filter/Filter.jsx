@@ -2,6 +2,7 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
+import Input from '@mui/material/Input';
 import { StyledFilter } from './Styled';
 
 const Filter = ({filter, onChange}) => {
@@ -9,7 +10,7 @@ const Filter = ({filter, onChange}) => {
     <StyledFilter>
       <label className="input-group">
         <span className="name">Find contact by name</span>
-        <input type="text" value={filter} onChange={onChange} />
+        <Input type="text" value={filter} onChange={onChange} />
       </label>
     </StyledFilter>
   );

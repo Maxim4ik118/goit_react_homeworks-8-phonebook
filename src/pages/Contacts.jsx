@@ -1,16 +1,24 @@
 import { useEffect } from 'react';
-import { StyledContacts } from './Styled';
-import { Filter, ContactList, Section, ContactForm } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
+
+
+import Alert from '@mui/material/Alert';
+
+import { Filter, ContactList, Section, ContactForm } from '../components';
+
 import {
   addContact,
   getContatcts,
   deleteContact,
   setFilterTerm,
-} from '../redux/phonebookActions';
+} from '../redux/phonebook/phonebookActions';
 
-export default function Contacts() {
+import WithAuthRedirect from 'hoc/withAuthRedirect';
+
+import { StyledContacts } from './Styled';
+
+function Contacts() {
   const dispatch = useDispatch();
   const { contacts, filterTerm, isFetching, error } = useSelector(
     state => state.phonebook
@@ -49,7 +57,7 @@ export default function Contacts() {
     (Array.isArray(contacts) &&
       contacts.filter(contact =>
         contact.name.toLowerCase().includes(filterTerm.toLowerCase())
-    )) ??
+      )) ??
     [];
 
   return (
@@ -59,13 +67,21 @@ export default function Contacts() {
       </Section>
       <Section title="Contacts">
         <Filter filter={filterTerm} onChange={handleFilterContactsByName} />
-        <ContactList
-          contacts={contactsFilteredByName}
-          isFetching={isFetching}
-          onDelete={handleDeleteContact}
-        />
-        {!!error && <div className="error">{error.message}</div>}
+        {!error && (
+          <ContactList
+            contacts={contactsFilteredByName}
+            isFetching={isFetching}
+            onDelete={handleDeleteContact}
+          />
+        )}
+        {!!error && (
+          <Alert className="error" severity="error">
+            {error.message}
+          </Alert>
+        )}
       </Section>
     </StyledContacts>
   );
 }
+
+export default WithAuthRedirect(Contacts)

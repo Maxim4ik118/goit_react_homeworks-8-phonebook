@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { PropTypes } from 'prop-types';
 
+import Input from '@mui/material/Input';
+import Button from '@mui/material/Button';
+
 import { StyledContactForm } from './Styled';
 
 const INITIAL_FORM_STATE = {
@@ -31,7 +34,7 @@ const ContactForm = ({addContact}) => {
     <StyledContactForm onSubmit={handleSubmit}>
       <label className="input-group">
         <span className="name">Name</span>
-        <input
+        <Input
           type="text"
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -43,7 +46,7 @@ const ContactForm = ({addContact}) => {
       </label>
       <label className="input-group">
         <span className="name">Number</span>
-        <input
+        <Input
           type="tel"
           name="phone"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -54,7 +57,7 @@ const ContactForm = ({addContact}) => {
         />
       </label>
 
-      <button type="submit">Add contact</button>
+      <Button variant="contained" type="submit">Add contact</Button>
     </StyledContactForm>
   );
 };

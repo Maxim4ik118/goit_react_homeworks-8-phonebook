@@ -1,6 +1,9 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { Contacts } from 'pages';
+import { Contacts, SignIn, SignUp, UserMenu } from 'pages';
+// import { useEffect } from 'react';
+// import { getUserDetailsRequest } from 'redux/user/userActions';
 
 // const INITIAL_CONTACTS_LIST = [
 //   { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -10,10 +13,21 @@ import { Contacts } from 'pages';
 // ];
 
 const App = () => {
+  const dispatch = useDispatch();
+
   return (
     <div className="app">
+      <header>
+        <nav>
+          <Link to="/contacts">Contacts</Link>
+          <Link to="/settings">Settings</Link>
+        </nav>
+      </header>
       <Routes>
-        <Route path="contacts" element={<Contacts />} />
+        <Route path="/contacts" element={<Contacts />} />
+        <Route path="/register" element={<SignUp />} />
+        <Route path="/login" element={<SignIn />} />
+        <Route path="/settings" element={<UserMenu />} />
       </Routes>
       {/* <Route path="/contacts" component={Contacts} />
         <Route path="/contacts" component={Contacts} /> */}

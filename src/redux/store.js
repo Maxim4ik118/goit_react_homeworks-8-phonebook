@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import phonebook from './phonebookReducer';
+import phonebook from './phonebook/phonebookReducer';
+import user from './user/userReducer';
 
 const store = configureStore({
-  reducer: { phonebook },
+  reducer: { phonebook, user },
 });
 
 export default store;
