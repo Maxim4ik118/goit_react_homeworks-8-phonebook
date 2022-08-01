@@ -52,8 +52,8 @@ export const getUserDetailsRequest = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const res = await UserAPI.getUserDetailsRequest();
-      userSignInRequest(res);
-      
+
+      return res;
     } catch (err) {
       return rejectWithValue(err.response.data);
     }

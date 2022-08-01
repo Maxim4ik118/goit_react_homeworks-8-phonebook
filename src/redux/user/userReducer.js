@@ -52,14 +52,14 @@ export default createReducer(initialState, {
     state.isFetching = false;
   },
 
-  // [getUserDetailsRequest.pending]: state => {
-  //   state.isFetching = true;
-  //   state.error = null;
-  // },
-  // [getUserDetailsRequest.fulfilled]: (state, action) => {
-  //   state.userData = { user: action.payload };
-  //   state.isFetching = false;
-  // },
+   [getUserDetailsRequest.pending]: state => {
+     state.isFetching = true;
+     state.error = null;
+   },
+   [getUserDetailsRequest.fulfilled]: (state, action) => {
+     state.userData = { user: action.payload };
+     state.isFetching = false;
+   },
   [getUserDetailsRequest.rejected]: (state, action) => {
     state.error = action.payload.message;
     state.isFetching = false;
