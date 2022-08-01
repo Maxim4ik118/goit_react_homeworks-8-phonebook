@@ -6,6 +6,7 @@ import { Alert, Box, Stack, TextField } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import LoginIcon from '@mui/icons-material/Login';
 
+import { CONTACTS_ROUTE, REGISTER_ROUTE } from 'routes/constants';
 import { userSignInRequest } from 'redux/user/userActions';
 import { useForm } from 'hooks/useForm';
 
@@ -25,7 +26,7 @@ function SignIn() {
   useEffect(() => {
     if (!userData) return;
 
-    navigate('/contacts');
+    navigate(CONTACTS_ROUTE);
   }, [userData, navigate]);
 
   const handleSubmit = event => {
@@ -89,7 +90,7 @@ function SignIn() {
           >
             Sign In
           </LoadingButton>
-          <p>Don't have an account yet? <Link to="/register">Sign Up!</Link></p>
+          <p>Don't have an account yet? <Link to={REGISTER_ROUTE}>Sign Up!</Link></p>
         </Stack>
       </Box>
     </StyledSignIn>

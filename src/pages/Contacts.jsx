@@ -11,6 +11,7 @@ import {
   deleteContact,
   setFilterTerm,
 } from '../redux/phonebook/phonebookActions';
+import { LOGIN_ROUTE } from 'routes/constants';
 
 import WithAuthRedirect from 'hoc/withAuthRedirect';
 
@@ -77,4 +78,4 @@ function Contacts() {
   );
 }
 
-export default WithAuthRedirect(Contacts)
+export default WithAuthRedirect(Contacts, LOGIN_ROUTE)

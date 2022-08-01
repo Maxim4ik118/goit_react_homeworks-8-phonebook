@@ -1,29 +1,60 @@
-import { Routes, Route, Link } from 'react-router-dom';
-import { Contacts, SignIn, SignUp, UserMenu } from 'pages';
+import { Suspense, useEffect, lazy } from 'react';
+import {
+  Routes,
+  Route,
+  NavLink,
+  useNavigate,
+  useLocation,
+} from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-// const INITIAL_CONTACTS_LIST = [
-//   { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-//   { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-//   { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-//   { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-// ];
+import { Loader } from 'components';
+
+import { CONTACTS_ROUTE, HOME_ROUTE, LOGIN_ROUTE, REGISTER_ROUTE, SETTINGS_ROUTE } from 'routes/constants';
+import { getUserDetailsRequest } from 'redux/user/userActions';
+
+
+const LazyContacts = lazy(() => import('./pages/Contacts'));
+const LazyUserMenu = lazy(() => import('./pages/UserMenu'));
+const LazySignUp = lazy(() => import('./pages/SignUp'));
+const LazySignIn = lazy(() => import('./pages/SignIn'));
 
 const App = () => {
+  const { userData } = useSelector(state => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === HOME_ROUTE) navigate('/contacts');
+  }, [navigate, location.pathname]);
+
+  useEffect(() => {
+    if (!!userData) return;
+
+    dispatch(getUserDetailsRequest());
+  }, [dispatch, userData]);
 
   return (
     <div className="app">
       <header className="header">
         <nav className="nav">
-          <Link to="/contacts" className='nav__link'>Contacts</Link>
-          <Link to="/settings" className='nav__link'>Settings</Link>
+          <NavLink to={CONTACTS_ROUTE} className={({ isActive }) => `${isActive ? "nav__link--active" : ""} nav__link`}>
+            Contacts
+          </NavLink>
+          <NavLink to={SETTINGS_ROUTE} className={({ isActive }) => `${isActive ? "nav__link--active" : ""} nav__link`}>
+            Settings
+          </NavLink>
         </nav>
       </header>
-      <Routes>
-        <Route path="/contacts" element={<Contacts />} />
-        <Route path="/register" element={<SignUp />} />
-        <Route path="/login" element={<SignIn />} />
-        <Route path="/settings" element={<UserMenu />} />
-      </Routes>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path={REGISTER_ROUTE} element={<LazySignUp />} />
+          <Route path={LOGIN_ROUTE} element={<LazySignIn />} />
+          <Route path={CONTACTS_ROUTE} element={<LazyContacts />} />
+          <Route path={SETTINGS_ROUTE} element={<LazyUserMenu />} />
+        </Routes>
+      </Suspense>
     </div>
   );
 };

@@ -6,6 +6,7 @@ import { Alert, Box, Stack, TextField } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import LoginIcon from '@mui/icons-material/Login';
 
+import { CONTACTS_ROUTE, LOGIN_ROUTE } from 'routes/constants';
 import { useForm } from 'hooks/useForm';
 import { userSignUpRequest } from 'redux/user/userActions';
 
@@ -34,7 +35,7 @@ function SignUp() {
   useEffect(() => {
     if (!userData) return;
 
-    navigate('/contacts');
+    navigate(CONTACTS_ROUTE);
   }, [userData, navigate]);
 
   return (
@@ -103,7 +104,7 @@ function SignUp() {
             Sign Up
           </LoadingButton>
           <p>
-            You already have an account? <Link to="/login">Sign In!</Link>
+            You already have an account? <Link to={LOGIN_ROUTE}>Sign In!</Link>
           </p>
         </Stack>
       </Box>

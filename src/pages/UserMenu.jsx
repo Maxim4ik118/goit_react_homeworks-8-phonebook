@@ -1,12 +1,11 @@
-import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { Box, Button, Stack, Alert } from '@mui/material';
 
 import {
-  getUserDetailsRequest,
   userLogOutRequest,
 } from 'redux/user/userActions';
+import { LOGIN_ROUTE } from 'routes/constants';
 
 import WithAuthRedirect from 'hoc/withAuthRedirect';
 
@@ -15,12 +14,6 @@ import { StyledUserMenu } from './Styled';
 function UserMenu() {
   const { userData, error, isFetching } = useSelector(state => state.user);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (!!userData) return;
-
-    dispatch(getUserDetailsRequest());
-  }, [dispatch, userData]);
 
   const handleLogOut = () => {
     dispatch(userLogOutRequest());
@@ -66,4 +59,4 @@ function UserMenu() {
   );
 }
 
-export default WithAuthRedirect(UserMenu);
+export default WithAuthRedirect(UserMenu, LOGIN_ROUTE);
