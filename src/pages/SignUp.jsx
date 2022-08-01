@@ -6,7 +6,7 @@ import { Alert, Box, Stack, TextField } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import LoginIcon from '@mui/icons-material/Login';
 
-import { CONTACTS_ROUTE, LOGIN_ROUTE } from 'routes/constants';
+import { CONTACTS_ROUTE, LOGIN_ROUTE } from 'constants/routes';
 import { useForm } from 'hooks/useForm';
 import { userSignUpRequest } from 'redux/user/userActions';
 

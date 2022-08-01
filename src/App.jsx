@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Loader } from 'components';
 
-import { CONTACTS_ROUTE, HOME_ROUTE, LOGIN_ROUTE, REGISTER_ROUTE, SETTINGS_ROUTE } from 'routes/constants';
+import { CONTACTS_ROUTE, HOME_ROUTE, LOGIN_ROUTE, REGISTER_ROUTE, SETTINGS_ROUTE } from 'constants/routes';
 import { getUserDetailsRequest } from 'redux/user/userActions';
 
 

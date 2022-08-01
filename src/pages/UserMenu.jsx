@@ -5,7 +5,7 @@ import { Box, Button, Stack, Alert } from '@mui/material';
 import {
   userLogOutRequest,
 } from 'redux/user/userActions';
-import { LOGIN_ROUTE } from 'routes/constants';
+import { LOGIN_ROUTE } from 'constants/routes';
 
 import WithAuthRedirect from 'hoc/withAuthRedirect';
 

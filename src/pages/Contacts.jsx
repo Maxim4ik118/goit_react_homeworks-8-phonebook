@@ -11,7 +11,7 @@ import {
   deleteContact,
   setFilterTerm,
 } from '../redux/phonebook/phonebookActions';
-import { LOGIN_ROUTE } from 'routes/constants';
+import { LOGIN_ROUTE } from 'constants/routes';
 
 import WithAuthRedirect from 'hoc/withAuthRedirect';
 
