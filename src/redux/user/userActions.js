@@ -15,7 +15,6 @@ export const userSignUpRequest = createAsyncThunk(
   }
 );
 
-
 export const userSignInRequest = createAsyncThunk(
   'user/userSignInRequest',
   async (formData, { rejectWithValue }) => {
@@ -30,13 +29,12 @@ export const userSignInRequest = createAsyncThunk(
   }
 );
 
-
 export const userLogOutRequest = createAsyncThunk(
   'user/userLogOutRequest',
   async (_, { rejectWithValue }) => {
     try {
       const res = await UserAPI.userLogOutRequest();
-      
+
       localStorage.removeItem('token', res.token);
 
       return res;
@@ -46,12 +44,11 @@ export const userLogOutRequest = createAsyncThunk(
   }
 );
 
-
 export const getUserDetailsRequest = createAsyncThunk(
   'user/getUserDetailsRequest',
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, signal }) => {
     try {
-      const res = await UserAPI.getUserDetailsRequest();
+      const res = await UserAPI.getUserDetailsRequest(signal);
 
       return res;
     } catch (err) {
@@ -59,4 +56,3 @@ export const getUserDetailsRequest = createAsyncThunk(
     }
   }
 );
-

@@ -32,7 +32,10 @@ const App = () => {
   useEffect(() => {
     if (!!userData) return;
 
-    dispatch(getUserDetailsRequest());
+    const getUserDetailPromise = dispatch(getUserDetailsRequest());
+    return () => {
+      getUserDetailPromise.abort();
+    }
   }, [dispatch, userData]);
 
   return (

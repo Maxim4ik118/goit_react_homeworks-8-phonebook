@@ -24,7 +24,11 @@ function Contacts() {
   );
 
   useEffect(() => {
-    dispatch(getContatcts());
+    const getContactsPromise = dispatch(getContatcts());
+
+    return () => {
+      getContactsPromise.abort();
+    }
   }, [dispatch]);
 
   const handleAddContact = newContactData => {

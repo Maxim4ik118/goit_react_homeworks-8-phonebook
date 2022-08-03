@@ -21,7 +21,6 @@ const authInterceptor = config => {
 
 $privateHost.interceptors.request.use(authInterceptor);
 
-
 export const UserAPI = {
   async userSignUpRequest(formData) {
     const { data } = await $publicHost.post(`users/signup`, { ...formData });
@@ -31,23 +30,23 @@ export const UserAPI = {
     const { data } = await $publicHost.post(`users/login`, { ...formData });
     return await data;
   },
-  async getUserDetailsRequest() {
-    const { data } = await $privateHost.get(`/users/current`);
+  async getUserDetailsRequest(signal) {
+    const { data } = await $privateHost.get(`/users/current`, { signal });
     return await data;
   },
   async userLogOutRequest() {
     const { data } = await $privateHost.post(`/users/logout`);
     return await data;
   },
-}
+};
 
 export const ContactsAPI = {
-  async getContactsRequest() {
-    const { data } = await $privateHost.get(`/contacts`);
+  async getContactsRequest(signal) {
+    const { data } = await $privateHost.get(`/contacts`, { signal });
     return await data;
   },
   async addContactRequest(contactData) {
-    const { data } = await $privateHost.post(`/contacts`, {...contactData});
+    const { data } = await $privateHost.post(`/contacts`, { ...contactData });
     return await data;
   },
   async deleteContactRequest(contactId) {

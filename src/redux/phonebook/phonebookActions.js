@@ -5,9 +5,9 @@ export const setFilterTerm = createAction('phonebook/setFilterTerm');
 
 export const getContatcts = createAsyncThunk(
   'contacts/getContacts',
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, signal }) => {
     try {
-      const res = await ContactsAPI.getContactsRequest();
+      const res = await ContactsAPI.getContactsRequest(signal);
 
       return res;
     } catch (err) {
