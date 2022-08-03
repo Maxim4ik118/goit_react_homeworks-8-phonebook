@@ -24,6 +24,8 @@ function Contacts() {
   );
 
   useEffect(() => {
+    if(contacts.length !== 0) return;
+
     const getContactsPromise = dispatch(getContatcts());
 
     return () => {
